@@ -18,6 +18,12 @@ func main() {
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Incoming request: %s %s from %s", r.Method, r.URL.Path, r.RemoteAddr)
 
+		for name, values := range r.Header {
+			for _, value := range values {
+				log.Printf("Header: %s=%s", name, value)
+			}
+		}
+
 		proxy.ServeHTTP(w, r)
 	}
 
